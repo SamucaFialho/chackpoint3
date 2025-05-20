@@ -19,6 +19,8 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    
     private LocalDateTime data_consulta;
     private String status_consulta;
     private BigDecimal quantidade_horas;
@@ -38,6 +40,18 @@ public class Consulta {
     private Paciente paciente;
 
 
+    public Profissional getProfissional() {
+        return profissional;
+    }
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
+    }
+    public Paciente getPaciente() {
+        return paciente;
+    }
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
     public Long getId() {
         return id;
     }

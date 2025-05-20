@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.com.github.checkpoint3.dto.ProfissionalStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +22,11 @@ public class Profissional {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private ProfissionalStatus status;
+
+    
     private String nome;
     private String especialidade;
     private BigDecimal valor_hora;
@@ -37,13 +44,19 @@ public class Profissional {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getStatus() {
+   
+    public ProfissionalStatus getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+    public void setStatus(ProfissionalStatus status) {
         this.status = status;
     }
-   
+    public List<Consulta> getConsulta() {
+        return consulta;
+    }
+    public void setConsulta(List<Consulta> consulta) {
+        this.consulta = consulta;
+    }
     public String getNome() {
         return nome;
     }

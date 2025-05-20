@@ -44,7 +44,7 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        boolean result = pacienteService.DeletePaciente(id);
+        boolean result = pacienteService.deletePaciente(id);
         if(result){
             return ResponseEntity.noContent().build();
         }
@@ -54,7 +54,7 @@ public class PacienteController {
     @GetMapping("/{id}")
     public ResponseEntity<PacienteResponse> findById(@PathVariable Long id){
 
-        return pacienteService.getProductById(id)
+        return pacienteService.getPacienteById(id)
         .map(p -> new PacienteResponse().toDto(p))
         .map(ResponseEntity:: ok)
         .orElse(ResponseEntity.notFound().build());

@@ -2,10 +2,12 @@ package br.com.github.checkpoint3.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.github.checkpoint3.dto.ProfissionalStatus;
 import br.com.github.checkpoint3.dto.dtoprofissional.ProfissionalRequestCreate;
 import br.com.github.checkpoint3.dto.dtoprofissional.ProfissionalRequestUpdate;
 import br.com.github.checkpoint3.model.Consulta;
@@ -29,18 +31,30 @@ public class ProfissionalService {
 
     public Profissional createProfissional(ProfissionalRequestCreate dto){
         Profissional profissional = new Profissional();
-        profissional.setStatus("Aberto");
+        profissional.setStatus(ProfissionalStatus.AGENDADA);
+        profissional.setCreated_at(dto.getCreated_at());
+        profissional.setUpdated_at(dto.getUpdated_at());
 
-        List<Consulta> consultas = dto.getConsultas().stream().map(p -> {Consulta consulta
-        = new Consulta();
+        List<Consulta> consultas = dto.getConsultas().stream().map(p -> {
+        Consulta consulta = new Consulta();
 
-        Paciente paciente = pacienteRepository.findById(p.getPacienteid) //parei aqui
+        Paciente paciente = pacienteRepository.findById(p.getId())
+        .orElseThrow(() -> 
+        new RuntimeException(
+            "Paciente Inexistente: " + p.getId()
+ ));
+            consulta.setPaciente(paciente);
+            consulta.setValor_consulta(p.getValor_consulta());
+            consulta.setQuantidade_horas(p.getQuantidade_horas());
+            consulta.setProfissional(profissional);
+            return consulta;
+       
         
         
-        }).collect(null);
+        }).collect(Collectors.toList());
 
-
-        return profissionalRepository.save(dto.toModel());
+        profissional.setConsulta(consultas);
+        return profissionalRepository.save(profissional);
     }
     public Optional<Profissional> getProfissionalById(Long id){
         return profissionalRepository.findById(id);
@@ -62,5 +76,10 @@ public class ProfissionalService {
         }
         return false;
     }
+
+    public List<Profissional> findByStatus(ProfissionalStatus status){
+        return profissionalRepository.findbyStatus(status);
+    }
+    
 
 }

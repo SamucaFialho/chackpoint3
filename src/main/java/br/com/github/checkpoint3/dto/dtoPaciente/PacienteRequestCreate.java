@@ -1,5 +1,7 @@
 package br.com.github.checkpoint3.dto.dtoPaciente;
 
+import br.com.github.checkpoint3.model.Paciente;
+
 public class PacienteRequestCreate {
     private Long id;
     private String nome;
@@ -7,6 +9,19 @@ public class PacienteRequestCreate {
     private String bairro;
     private String email;
     private String telefone_completo;
+
+
+    public Paciente toModel(){
+        Paciente paciente = new Paciente();
+        paciente.setNome(this.nome);
+        paciente.setEmail(this.email);
+        paciente.setEndereco(this.endereco);
+        paciente.setBairro(this.bairro);
+        paciente.setTelefone(this.telefone_completo);
+        return paciente;
+        
+    }
+
 
     public String getNome() {
         return nome;

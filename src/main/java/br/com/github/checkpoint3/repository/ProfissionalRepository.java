@@ -10,5 +10,5 @@ import br.com.github.checkpoint3.model.Profissional;
 
 @Repository
 public interface ProfissionalRepository extends JpaRepository<Profissional, Long>{
-    public List<Profissional> findbyStatus(ProfissionalStatus status);
+    public List<Profissional> findByStatus(ProfissionalStatus status);
 }

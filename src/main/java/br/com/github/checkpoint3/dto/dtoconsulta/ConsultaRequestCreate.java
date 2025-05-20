@@ -3,9 +3,12 @@ package br.com.github.checkpoint3.dto.dtoconsulta;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import br.com.github.checkpoint3.model.Consulta;
+import br.com.github.checkpoint3.model.Paciente;
+
 public class ConsultaRequestCreate {
 
-       private Long id;
+    private Long id;
     private LocalDateTime data_consulta;
     private String status_consulta;
     private BigDecimal quantidade_horas;
@@ -13,6 +16,15 @@ public class ConsultaRequestCreate {
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
+    public Consulta toModel(){
+        Consulta consulta = new Consulta();
+        consulta.setStatus_consulta(this.status_consulta);
+        consulta.setCreated_at(this.created_at);
+        consulta.setUpdated_at(this.updated_at);
+        consulta.setValor_consulta(this.valor_consulta);
+        return consulta;
+        
+    }
     
     public Long getId() {
         return id;

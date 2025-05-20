@@ -78,7 +78,7 @@ public class ProfissionalService {
     }
 
     public List<Profissional> findByStatus(ProfissionalStatus status){
-        return profissionalRepository.findbyStatus(status);
+        return profissionalRepository.findByStatus(status);
     }
     
 
